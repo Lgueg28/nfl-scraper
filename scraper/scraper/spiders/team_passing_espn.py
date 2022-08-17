@@ -28,23 +28,21 @@ class TeamDataSpider(scrapy.Spider):
         for team_row in team_tbody.xpath('tr'):
             team_idx = team_row.xpath('@data-idx').extract_first()
             team_name = team_row.xpath('td/div/a/text()').extract_first()
+            team_row = stats_tbody.xpath(f'tr[@data-idx={team_idx}]')
             yield {
                 'year': year,
-                'idx': team_idx,
                 'name': team_name,
-                # 'att': team_row.xpath('td[2]/text()').extract_first(),
-                # 'cmp': team_row.xpath('td[3]/text()').extract_first(),
-                # 'cmp_pct': team_row.xpath('td[4]/text()').extract_first(),
-                # 'yds_att': team_row.xpath('td[5]/text()').extract_first(),
-                # 'yds': team_row.xpath('td[6]/text()').extract_first(),
-                # 'td': team_row.xpath('td[7]/text()').extract_first(),
-                # 'int': team_row.xpath('td[8]/text()').extract_first(),
-                # 'rate': team_row.xpath('td[9]/text()').extract_first(),
-                # '1st': team_row.xpath('td[10]/text()').extract_first(),
-                # '1st%': team_row.xpath('td[11]/text()').extract_first(),
-                # '20+': team_row.xpath('td[12]/text()').extract_first(),
-                # '40+': team_row.xpath('td[13]/text()').extract_first(),
-                # 'Lng': team_row.xpath('td[14]/text()').extract_first(),
-                # 'Sck': team_row.xpath('td[15]/text()').extract_first(),
-                # 'SckY': team_row.xpath('td[16]/text()').extract_first(),
+                'gp': team_row.xpath('td[1]/div/text()').extract_first(),
+                'cmp': team_row.xpath('td[2]/div/text()').extract_first(),
+                'att': team_row.xpath('td[3]/div/text()').extract_first(),
+                'cmp_pct': team_row.xpath('td[4]/div/text()').extract_first(),
+                'yds': team_row.xpath('td[5]/div/text()').extract_first(),
+                'avg': team_row.xpath('td[6]/div/text()').extract_first(),
+                'yds_gm': team_row.xpath('td[7]/div/text()').extract_first(),
+                'lng': team_row.xpath('td[8]/div/text()').extract_first(),
+                'td': team_row.xpath('td[9]/div/text()').extract_first(),
+                'int': team_row.xpath('td[10]/div/text()').extract_first(),
+                'sack': team_row.xpath('td[11]/div/text()').extract_first(),
+                'syl': team_row.xpath('td[12]/div/text()').extract_first(),
+                'rtg': team_row.xpath('td[13]/div/text()').extract_first()
             }
