@@ -1,0 +1,9 @@
+# Intellij Files
+.idea
+nfl-scraper.iml
+
+# Generated Files for now
+data
+
+# Scrapy cache
+__pycache__
