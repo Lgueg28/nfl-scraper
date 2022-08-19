@@ -1,10 +1,10 @@
 import scrapy
 
 
-class TeamTotalOffenseDataESPNSpider(scrapy.Spider):
-    """Pulls all of the historical team total offense data"""
-    name = 'team-total-offense-espn'
-    start_urls = ['https://www.espn.com/nfl/stats/team']
+class TeamTotalDefenseDataESPNSpider(scrapy.Spider):
+    """Pulls all of the historical team total defense data"""
+    name = 'team-total-defense-espn'
+    start_urls = ['https://www.espn.com/nfl/stats/team/_/view/defense']
     custom_settings = {
         'ROBOTSTXT_OBEY': False,
         'DOWNLOAD_DELAY': 0.1
@@ -16,11 +16,11 @@ class TeamTotalOffenseDataESPNSpider(scrapy.Spider):
             parts = value.split('|')
             season = parts[0]
             season_type = parts[1]
-            # https://www.espn.com/nfl/stats/team/_/season/2020/seasontype/2
-            total_offense_stats_url = f"https://www.espn.com/nfl/stats/team/_/season/{season}/seasontype/{season_type}"
-            yield response.follow(total_offense_stats_url, self.parse_total_offense_stats, meta={'year': season})
+            # https://www.espn.com/nfl/stats/team/_/view/defense/season/2020/seasontype/2
+            total_defense_stats_url = f"https://www.espn.com/nfl/stats/team/_/view/defense/season/{season}/seasontype/{season_type}"
+            yield response.follow(total_defense_stats_url, self.parse_total_defense_stats, meta={'year': season})
 
-    def parse_total_offense_stats(self, response):
+    def parse_total_defense_stats(self, response):
         year = response.meta['year']
         team_tbody = response.xpath('//tbody[has-class("Table__TBODY")]')[0]
         stats_tbody = response.xpath('//tbody[has-class("Table__TBODY")]')[1]
