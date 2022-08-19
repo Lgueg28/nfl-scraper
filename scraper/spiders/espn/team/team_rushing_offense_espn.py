@@ -1,9 +1,9 @@
 import scrapy
 
 
-class TeamRushingDataESPNSpider(scrapy.Spider):
+class TeamRushingOffenseESPNSpider(scrapy.Spider):
     """Pulls all of the historical team rushing data"""
-    name = 'team-rushing-espn'
+    name = 'team-rushing-offense-espn'
     start_urls = ['https://www.espn.com/nfl/stats/team/_/view/offense/stat/rushing/table/rushing']
     custom_settings = {
         'ROBOTSTXT_OBEY': False,

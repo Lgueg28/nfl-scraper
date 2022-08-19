@@ -1,9 +1,9 @@
 import scrapy
 
 
-class TeamPassingDataESPNSpider(scrapy.Spider):
+class TeamPassingOffenseESPNSpider(scrapy.Spider):
     """Pulls all of the historical team passing data"""
-    name = 'team-passing-espn'
+    name = 'team-passing-offense-espn'
     start_urls = ['https://www.espn.com/nfl/stats/team/_/view/offense/stat/passing/table/passing']
     custom_settings = {
         'ROBOTSTXT_OBEY': False,
