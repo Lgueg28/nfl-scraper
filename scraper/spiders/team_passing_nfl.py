@@ -19,6 +19,7 @@ class TeamDataSpider(scrapy.Spider):
         year = response.meta['year']
         # TODO - I broke this loop :(
         for team_row in response.xpath('//span[has-class("TeamLink__Logo")]/../../..').getall():
+            # Overwritten by espn stuff, fix later...
             index = team_row.xpath('@data-idx').extract_first()
             team = team_row.xpath('span[has-class("TeamLink__Logo")]/following-sibling::a/text()').extract_first()
             yield {

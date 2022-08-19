@@ -1,7 +1,7 @@
 import scrapy
 
 
-class TeamDataSpider(scrapy.Spider):
+class TeamPassingDataESPNSpider(scrapy.Spider):
     """Pulls all of the historical team passing data"""
     name = 'team-passing-espn'
     start_urls = ['https://www.espn.com/nfl/stats/team/_/view/offense/stat/passing/table/passing']
@@ -12,13 +12,13 @@ class TeamDataSpider(scrapy.Spider):
 
     def parse(self, response):
         # current_year = datetime.now().year
-        # https://www.espn.com/nfl/stats/team/_/view/offense/stat/passing/season/2020/seasontype/2/table/passing/sort/netPassingYardsPerGame/dir/descte
+        # https://www.espn.com/nfl/stats/team/_/view/offense/stat/passing/season/2020/seasontype/2/table/passing
         query = '//div[has-class("filters__seasonDropdown")]/select/option[contains(text(), "Regular")]/@value'
         for value in response.xpath(query).getall():
             parts = value.split('|')
             season = parts[0]
             season_type = parts[1]
-            passing_stats_url = f"https://www.espn.com/nfl/stats/team/_/view/offense/stat/passing/season/{season}/seasontype/{season_type}/table/passing/sort/netPassingYardsPerGame/dir/desc"
+            passing_stats_url = f"https://www.espn.com/nfl/stats/team/_/view/offense/stat/passing/season/{season}/seasontype/{season_type}/table/passing"
             yield response.follow(passing_stats_url, self.parse_passing_stats, meta={'year': season})
 
     def parse_passing_stats(self, response):
