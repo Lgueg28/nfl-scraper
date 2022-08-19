@@ -18,8 +18,8 @@ class TeamRushingDataESPNSpider(scrapy.Spider):
             parts = value.split('|')
             season = parts[0]
             season_type = parts[1]
-            passing_stats_url = f"https://www.espn.com/nfl/stats/team/_/view/offense/stat/rushing/season/{season}/seasontype/{season_type}/table/rushing"
-            yield response.follow(passing_stats_url, self.parse_rushing_stats, meta={'year': season})
+            rushing_stats_url = f"https://www.espn.com/nfl/stats/team/_/view/offense/stat/rushing/season/{season}/seasontype/{season_type}/table/rushing"
+            yield response.follow(rushing_stats_url, self.parse_rushing_stats, meta={'year': season})
 
     def parse_rushing_stats(self, response):
         year = response.meta['year']
