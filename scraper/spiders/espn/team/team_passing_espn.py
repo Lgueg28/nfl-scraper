@@ -11,13 +11,12 @@ class TeamPassingDataESPNSpider(scrapy.Spider):
     }
 
     def parse(self, response):
-        # current_year = datetime.now().year
-        # https://www.espn.com/nfl/stats/team/_/view/offense/stat/passing/season/2020/seasontype/2/table/passing
         query = '//div[has-class("filters__seasonDropdown")]/select/option[contains(text(), "Regular")]/@value'
         for value in response.xpath(query).getall():
             parts = value.split('|')
             season = parts[0]
             season_type = parts[1]
+            # https://www.espn.com/nfl/stats/team/_/view/offense/stat/passing/season/2020/seasontype/2/table/passing
             passing_stats_url = f"https://www.espn.com/nfl/stats/team/_/view/offense/stat/passing/season/{season}/seasontype/{season_type}/table/passing"
             yield response.follow(passing_stats_url, self.parse_passing_stats, meta={'year': season})
 

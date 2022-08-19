@@ -11,13 +11,12 @@ class TeamRushingDataESPNSpider(scrapy.Spider):
     }
 
     def parse(self, response):
-        # current_year = datetime.now().year
-        # https://www.espn.com/nfl/stats/team/_/view/offense/stat/rushing/season/2020/seasontype/2/table/rushing
         query = '//div[has-class("filters__seasonDropdown")]/select/option[contains(text(), "Regular")]/@value'
         for value in response.xpath(query).getall():
             parts = value.split('|')
             season = parts[0]
             season_type = parts[1]
+            # https://www.espn.com/nfl/stats/team/_/view/offense/stat/rushing/season/2020/seasontype/2/table/rushing
             rushing_stats_url = f"https://www.espn.com/nfl/stats/team/_/view/offense/stat/rushing/season/{season}/seasontype/{season_type}/table/rushing"
             yield response.follow(rushing_stats_url, self.parse_rushing_stats, meta={'year': season})
 
